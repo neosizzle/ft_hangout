@@ -3,10 +3,13 @@ import 'package:ft_hangout/pages/message_page.dart';
 
 class ContactList extends StatelessWidget {
   final List<Map<String, dynamic>> contacts;
+  final VoidCallback? onEdit;
+
 
   const ContactList({
     super.key,
     required this.contacts,
+    required this.onEdit
   });
 
   @override
@@ -29,13 +32,15 @@ class ContactList extends StatelessWidget {
                 title: Text(contactName),
                 subtitle: Text(contact['mobile']),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () {
-                   Navigator.push(
+                onTap: () async {
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => MessagePage(contactId: contactId),
                     ),
                   );
+
+                  onEdit!();
                 },
               );
             },

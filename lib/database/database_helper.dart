@@ -275,6 +275,33 @@ class DatabaseHelper {
   );
 }
 
+  Future<int> insertContact(Map<String, dynamic> data) async {
+    final db = await database;
+
+    return await db.insert('contacts', data);
+  }
+
+  Future<int> updateContact(Map<String, dynamic> data) async {
+    final db = await database;
+
+    return await db.update(
+      'contacts',
+      data,
+      where: 'id = ?',
+      whereArgs: [data['id']],
+    );
+  }
+
+  Future<int> deleteContact(int contactId) async {
+    final db = await database;
+
+    return await db.delete(
+      'contacts',
+      where: 'id = ?',
+      whereArgs: [contactId],
+    );
+  }
+
   // Close database
   Future<void> close() async {
     final db = await database;

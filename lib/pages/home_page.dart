@@ -48,13 +48,15 @@ class HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             
              ElevatedButton(
-              onPressed: () {
-                Navigator.push(
+              onPressed: () async {
+                await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const ContactPage(isEdit: false),
                   ),
                 );
+
+                loadContacts();
               },
               child: Text(l10n.newContact),
             ),
@@ -66,7 +68,7 @@ class HomePageState extends State<HomePage> {
                   ? const Center(child: CircularProgressIndicator())
                   : contacts!.isEmpty
                       ? const Center(child: Text('No contacts found.'))
-                      : ContactList(contacts: contacts ?? []),
+                      : ContactList(contacts: contacts ?? [], onEdit: loadContacts,),
             ),
 
           ],
