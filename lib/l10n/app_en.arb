@@ -1,0 +1,13 @@
+{
+  "appTitle": "My Application",
+  "welcome": "Welcome",
+  "helloUser": "Hello, {name}!",
+  "@helloUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "newContact": "Add new contac"
+}
