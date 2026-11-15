@@ -4,7 +4,7 @@ import 'pages/home_page.dart';
 import 'database/database_helper.dart';
 import 'l10n/app_localizations.dart';
 
-
+// TODO: localizations flutter gen-l10n and build
 final GlobalKey<MyAppState> appKey = GlobalKey<MyAppState>();
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
@@ -77,7 +77,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     loadSettings();
     WidgetsBinding.instance.addObserver(this);
-  }
+   }
 
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,7 @@ import 'contact_page.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/contact_list.dart';
 import '../l10n/app_localizations.dart';
+import '../services/sms_service.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -33,6 +34,8 @@ class HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     loadContacts();
+    SmsService.instance.startListening();
+
   }
   
   @override

@@ -262,6 +262,24 @@ class DatabaseHelper {
     return null;
   }
 
+  // get contact by id
+  Future<Map<String, dynamic>?> getContactByMobile(String mobile) async {
+    final db = await database;
+
+    final result = await db.query(
+      'contacts',
+      where: 'mobile = ?',
+      whereArgs: [mobile],
+      limit: 1,
+    );
+
+    if (result.isNotEmpty) {
+      return Map<String, dynamic>.from(result.first);
+    }
+
+    return null;
+  }
+
   // get messages from contactid
   Future<List<Map<String, dynamic>>> getAllMessagesFromContactId(
     int contactId) async {
@@ -292,14 +310,40 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> deleteContact(int contactId) async {
-    final db = await database;
+ 
+Future<int> deleteContact(int contactId) async {
+  final db = await database;
 
-    return await db.delete(
+  return await db.transaction((txn) async {
+    await txn.delete(
+      'messages',
+      where: 'contact_id = ?',
+      whereArgs: [contactId],
+    );
+
+    return await txn.delete(
       'contacts',
       where: 'id = ?',
       whereArgs: [contactId],
     );
+  });
+}
+
+  Future<Map<String, dynamic>> insertMessage(Map<String, dynamic> data) async {
+    final db = await database;
+
+    final id = await db.insert('messages', data);
+    final inserted =  await db.query(
+      'messages',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+
+    if (inserted.isEmpty) throw Exception("Database is being sussy ah");
+
+    return Map<String, dynamic>.from(inserted.first);
+
   }
 
   // Close database

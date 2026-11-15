@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../database/database_helper.dart';
 import '../widgets/messages_app_bar.dart';
+import '../services/sms_service.dart';
 
 class MessagePage extends StatefulWidget {
   final int contactId;
@@ -20,6 +21,18 @@ class MessagePageState extends State<MessagePage> {
       TextEditingController();
 
   final ScrollController scrollController = ScrollController();
+
+  void scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
 
   Future<void> loadMessages() async {
     final result = await DatabaseHelper.instance
@@ -56,13 +69,25 @@ class MessagePageState extends State<MessagePage> {
 
     if (text.isEmpty) return;
 
-    // TODO: Insert the message into your database.
-    // Example:
-    // await DatabaseHelper.instance.insertMessage(...);
+    final newMsgPayload = {
+       "contact_id": widget.contactId,
+        "contents": text,
+        "is_sender": 1,
+    };
+    final newMsg = await DatabaseHelper.instance.insertMessage(newMsgPayload);
 
     messageController.clear();
 
-    await loadMessages();
+    handleNewMsg(newMsg);
+  }
+
+  
+  void handleNewMsg(Map<String, dynamic> newMessage) {
+    if (newMessage['contact_id'] != widget.contactId) return;
+    setState(() {
+      messages = [...?messages, newMessage];
+    });
+    scrollToBottom();
   }
 
   @override
@@ -70,6 +95,11 @@ class MessagePageState extends State<MessagePage> {
     super.initState();
     loadMessages();
     loadUser();
+    
+    // NOTE: BAD DESIGN, OVERWRITES OTHER REFERENCES
+    // this is used here because there is no other references
+    SmsService.instance.onMessageReceived = handleNewMsg;
+    SmsService.instance.startListening();
   }
 
   @override
@@ -105,8 +135,6 @@ class MessagePageState extends State<MessagePage> {
                         itemBuilder: (context, index) {
                           final message = messages![index];
 
-                          // TODO: Replace with your actual
-                          // sent/received field.
                           final bool isSent =
                               message['is_sender'] == 1;
 
