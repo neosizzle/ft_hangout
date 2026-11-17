@@ -2,6 +2,10 @@
 import 'package:flutter/material.dart';
 import '../database/database_helper.dart';
 import '../pages/home_page.dart';
+import '../l10n/app_localizations.dart';
+
+import '../database/database_helper.dart';
+import '../pages/home_page.dart';
 
 class ContactPage extends StatefulWidget {
   final bool isEdit;
@@ -38,6 +42,9 @@ class ContactPageState extends State<ContactPage> {
     'aura': null,
     'created_at': null,
   };
+
+  AppLocalizations get l10n =>
+      AppLocalizations.of(context)!;
 
   @override
   void initState() {
@@ -81,7 +88,7 @@ class ContactPageState extends State<ContactPage> {
       }
     } catch (e) {
       if (mounted) {
-        _showMessage('Failed to load contact: $e');
+        _showMessage(l10n.failedLoadContact(e.toString()));
       }
     } finally {
       if (mounted) {
@@ -120,7 +127,7 @@ class ContactPageState extends State<ContactPage> {
     try {
       if (widget.isEdit) {
         data['id'] = widget.contactId;
-        
+
         await DatabaseHelper.instance.updateContact(data);
       } else {
         await DatabaseHelper.instance.insertContact(data);
@@ -130,14 +137,14 @@ class ContactPageState extends State<ContactPage> {
 
       _showMessage(
         widget.isEdit
-            ? 'Contact updated successfully'
-            : 'Contact created successfully',
+            ? l10n.contactUpdated
+            : l10n.contactCreated,
       );
 
       Navigator.pop(context, true);
     } catch (e) {
       if (mounted) {
-        _showMessage('Failed to save contact: $e');
+        _showMessage(l10n.failedSaveContact(e.toString()));
       }
     } finally {
       if (mounted) {
@@ -193,7 +200,9 @@ class ContactPageState extends State<ContactPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? 'Edit Contact' : 'Add Contact',
+          widget.isEdit
+              ? l10n.editContact
+              : l10n.addContact,
         ),
       ),
       body: _isLoading
@@ -207,12 +216,12 @@ class ContactPageState extends State<ContactPage> {
                 children: [
                   // Name
                   _buildTextField(
-                    label: 'Name',
+                    label: l10n.name,
                     controller: _nameController,
                     validator: (value) {
                       if (value == null ||
                           value.trim().isEmpty) {
-                        return 'Name is required';
+                        return l10n.nameRequired;
                       }
                       return null;
                     },
@@ -220,18 +229,18 @@ class ContactPageState extends State<ContactPage> {
 
                   // Mobile
                   _buildTextField(
-                    label: 'Mobile',
+                    label: l10n.mobile,
                     controller: _mobileController,
                     keyboardType: TextInputType.phone,
                     validator: (value) {
                       if (value == null ||
                           value.trim().isEmpty) {
-                        return 'Mobile is required';
+                        return l10n.mobileRequired;
                       }
 
                       if (!RegExp(r'^[0-9]+$')
                           .hasMatch(value.trim())) {
-                        return 'Mobile must contain digits only';
+                        return l10n.mobileDigitsOnly;
                       }
 
                       return null;
@@ -240,21 +249,21 @@ class ContactPageState extends State<ContactPage> {
 
                   // Notes
                   _buildTextField(
-                    label: 'Notes',
+                    label: l10n.notes,
                     controller: _notesController,
                     maxLines: 3,
                   ),
 
                   // Address
                   _buildTextField(
-                    label: 'Address',
+                    label: l10n.address,
                     controller: _addressController,
                     maxLines: 3,
                   ),
 
-                  // Aura (INTEGER)
+                  // Aura
                   _buildTextField(
-                    label: 'Aura',
+                    label: l10n.aura,
                     controller: _auraController,
                     keyboardType: TextInputType.number,
                     validator: (value) {
@@ -264,7 +273,7 @@ class ContactPageState extends State<ContactPage> {
                       }
 
                       if (int.tryParse(value.trim()) == null) {
-                        return 'Aura must be a valid integer';
+                        return l10n.auraInvalidInteger;
                       }
 
                       return null;
@@ -281,7 +290,7 @@ class ContactPageState extends State<ContactPage> {
                           onPressed: _isSaving
                               ? null
                               : () => Navigator.pop(context),
-                          child: const Text('Cancel'),
+                          child: Text(l10n.cancel),
                         ),
                       ),
 
@@ -301,35 +310,43 @@ class ContactPageState extends State<ContactPage> {
                                 )
                               : Text(
                                   widget.isEdit
-                                      ? 'Update'
-                                      : 'Save',
+                                      ? l10n.update
+                                      : l10n.save,
                                 ),
                         ),
                       ),
                     ],
                   ),
 
-                   if (widget.isEdit)
+                  if (widget.isEdit)
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                         foregroundColor: Colors.white,
                       ),
-                      onPressed: () async {
-                        int? contactId = widget.contactId;
-                        if (contactId != null) await DatabaseHelper.instance.deleteContact(contactId);
-                      
-                        if (!mounted) return;
+                      onPressed: _isSaving
+                          ? null
+                          : () async {
+                              final contactId = widget.contactId;
 
-                        _showMessage('Contact deleted');
-                         Navigator.pushReplacement(
-                          this.context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(),
-                          ),
-                        );
-                      },
-                      child: const Text('Delete'),
+                              if (contactId != null) {
+                                await DatabaseHelper.instance
+                                    .deleteContact(contactId);
+                              }
+
+                              if (!mounted) return;
+
+                              _showMessage(l10n.contactDeleted);
+
+                              Navigator.pushReplacement(
+                                this.context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const HomePage(),
+                                ),
+                              );
+                            },
+                      child: Text(l10n.delete),
                     ),
                 ],
               ),

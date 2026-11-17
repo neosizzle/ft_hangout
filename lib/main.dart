@@ -4,7 +4,7 @@ import 'pages/home_page.dart';
 import 'database/database_helper.dart';
 import 'l10n/app_localizations.dart';
 
-// TODO: localizations flutter gen-l10n and build
+// TODO: send SMS
 final GlobalKey<MyAppState> appKey = GlobalKey<MyAppState>();
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Color appBarColor = Colors.white;
-  String systemLang = "en";
+  Locale? appLocale;
   Map<String, dynamic>? settings;
   DateTime? lastBackgrounded;
 
@@ -33,13 +33,14 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     });
 
     String colorStr = '#${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}';
-    DatabaseHelper.instance.updateSettings(headerColor: colorStr, lang: systemLang);
+    
+    DatabaseHelper.instance.updateSettings(headerColor: colorStr, lang: "en");
     
   }
 
   void changeLang(String lang) {
     setState(() {
-      systemLang = lang;
+      appLocale = Locale(lang);
     });
 
     String colorStr = '#${appBarColor.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}';
@@ -52,23 +53,15 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (!mounted) return;
 
     Color loadedColor = const Color(0xFFEF9A86);
-    String loadedLang = 'en';
 
     if (result != null) {
       String colorHex = result['header_color'].replaceAll('#', '');
       loadedColor = Color(int.parse('FF$colorHex', radix: 16));
-
-      String savedLang = result['lang'] ?? 'en';
-
-      if (['en', 'ms'].contains(savedLang)) {
-        loadedLang = savedLang;
-      }
     }
 
     setState(() {
       settings = result;
       appBarColor = loadedColor;
-      systemLang = loadedLang;
     });
   }
 
@@ -81,6 +74,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'FT Hangout',
       theme: ThemeData(
@@ -89,7 +83,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
           foregroundColor: Colors.white,
         ),
       ),
-      locale: Locale(systemLang),
+      locale: appLocale,
       supportedLocales: const [
         Locale('en'),
         Locale('ms'),
@@ -100,6 +94,18 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      localeResolutionCallback: (deviceLocale, supportedLocales) {
+        if (deviceLocale != null) {
+          for (final locale in supportedLocales) {
+            if (locale.languageCode == deviceLocale.languageCode) {
+              return locale;
+            }
+          }
+        }
+
+        // Default language
+        return const Locale('ms');
+      },
       scaffoldMessengerKey: scaffoldMessengerKey,
       home: const HomePage(),
     );
@@ -131,7 +137,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
         messenger.showSnackBar(
           SnackBar(
-            content: Text('You left the app at $formattedTime'),
+            content: Text(formattedTime),
             duration: const Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
           ),

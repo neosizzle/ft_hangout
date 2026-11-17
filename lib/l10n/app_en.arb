@@ -1,6 +1,4 @@
 {
-  "appTitle": "My Application",
-  "welcome": "Welcome",
   "helloUser": "Hello, {name}!",
   "@helloUser": {
     "placeholders": {
@@ -9,5 +7,45 @@
       }
     }
   },
-  "newContact": "Add new contac"
+  "newContact": "Add new contact",
+  "noContacts": "No contacts found",
+  "addContact": "Add Contact",
+  "editContact": "Edit Contact",
+  "name": "Name",
+  "mobile": "Mobile",
+  "notes": "Notes",
+  "address": "Address",
+  "aura": "Aura",
+  "cancel": "Cancel",
+  "save": "Save",
+  "update": "Update",
+  "delete": "Delete",
+  "nameRequired": "Name is required",
+  "mobileRequired": "Mobile is required",
+  "mobileDigitsOnly": "Mobile must contain digits only",
+  "auraInvalidInteger": "Aura must be a valid integer",
+  "contactUpdated": "Contact updated successfully",
+  "contactCreated": "Contact created successfully",
+  "contactDeleted": "Contact deleted",
+  "failedLoadContact": "Failed to load contact: {error}",
+  "@failedLoadContact": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "failedSaveContact": "Failed to save contact: {error}",
+  "@failedSaveContact": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "noMessagesYet": "No messages yet. Say hello!",
+  "typeMessage": "Type a message...",
+  "settings": "Settings",
+  "chooseAppBarColor": "Choose AppBar Color",
+  "cancel": "Cancel",
+  "apply": "Apply",
+  "changeAppBarColor": "Change AppBar Color",
+  "noContactsFound": "No contacts found."
+
 }

@@ -98,18 +98,6 @@ abstract class AppLocalizations {
     Locale('ms'),
   ];
 
-  /// No description provided for @appTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'My Application'**
-  String get appTitle;
-
-  /// No description provided for @welcome.
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome'**
-  String get welcome;
-
   /// No description provided for @helloUser.
   ///
   /// In en, this message translates to:
@@ -119,8 +107,176 @@ abstract class AppLocalizations {
   /// No description provided for @newContact.
   ///
   /// In en, this message translates to:
-  /// **'Add new contac'**
+  /// **'Add new contact'**
   String get newContact;
+
+  /// No description provided for @noContacts.
+  ///
+  /// In en, this message translates to:
+  /// **'No contacts found'**
+  String get noContacts;
+
+  /// No description provided for @addContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Contact'**
+  String get addContact;
+
+  /// No description provided for @editContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Contact'**
+  String get editContact;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @mobile.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile'**
+  String get mobile;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @aura.
+  ///
+  /// In en, this message translates to:
+  /// **'Aura'**
+  String get aura;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @nameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get nameRequired;
+
+  /// No description provided for @mobileRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile is required'**
+  String get mobileRequired;
+
+  /// No description provided for @mobileDigitsOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile must contain digits only'**
+  String get mobileDigitsOnly;
+
+  /// No description provided for @auraInvalidInteger.
+  ///
+  /// In en, this message translates to:
+  /// **'Aura must be a valid integer'**
+  String get auraInvalidInteger;
+
+  /// No description provided for @contactUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact updated successfully'**
+  String get contactUpdated;
+
+  /// No description provided for @contactCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact created successfully'**
+  String get contactCreated;
+
+  /// No description provided for @contactDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact deleted'**
+  String get contactDeleted;
+
+  /// No description provided for @failedLoadContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load contact: {error}'**
+  String failedLoadContact(Object error);
+
+  /// No description provided for @failedSaveContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save contact: {error}'**
+  String failedSaveContact(Object error);
+
+  /// No description provided for @noMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet. Say hello!'**
+  String get noMessagesYet;
+
+  /// No description provided for @typeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a message...'**
+  String get typeMessage;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @chooseAppBarColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose AppBar Color'**
+  String get chooseAppBarColor;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// No description provided for @changeAppBarColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Change AppBar Color'**
+  String get changeAppBarColor;
+
+  /// No description provided for @noContactsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No contacts found.'**
+  String get noContactsFound;
 }
 
 class _AppLocalizationsDelegate

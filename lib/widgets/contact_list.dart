@@ -1,10 +1,11 @@
+
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import 'package:ft_hangout/pages/message_page.dart';
 
 class ContactList extends StatelessWidget {
   final List<Map<String, dynamic>> contacts;
   final VoidCallback? onEdit;
-
 
   const ContactList({
     super.key,
@@ -14,13 +15,15 @@ class ContactList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return contacts.isEmpty
-        ? const Center(child: Text('No contacts found.'))
+        ? Center(child: Text(l10n.noContactsFound))
         : ListView.builder(
             itemCount: contacts.length,
             itemBuilder: (context, index) {
               final contact = contacts[index];
-              final int contactId  = contact['id'];
+              final int contactId = contact['id'];
               final String contactName = contact['name'];
 
               return ListTile(

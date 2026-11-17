@@ -70,7 +70,7 @@ class HomePageState extends State<HomePage> {
               child: contacts == null
                   ? const Center(child: CircularProgressIndicator())
                   : contacts!.isEmpty
-                      ? const Center(child: Text('No contacts found.'))
+                      ? Center(child: Text(l10n.noContacts))
                       : ContactList(contacts: contacts ?? [], onEdit: loadContacts,),
             ),
 
@@ -80,63 +80,3 @@ class HomePageState extends State<HomePage> {
     );
   }
 }
-
-// class HomePage extends StatelessWidget {
-
-//   const HomePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Home')),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             const Text(
-//               'Welcome to Home Page',
-//               style: TextStyle(fontSize: 24),
-//             ),
-//             const SizedBox(height: 20),
-
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => const ContactsPage(),
-//                   ),
-//                 );
-//               },
-//               child: const Text('Go to Contacts'),
-//             ),
-
-//              ElevatedButton(
-//               onPressed: () {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => const MessagePage(),
-//                   ),
-//                 );
-//               },
-//               child: const Text('Go to Message'),
-//             ),
-
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => const SettingsPage(),
-//                   ),
-//                 );
-//               },
-//               child: const Text('Go to Settings'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

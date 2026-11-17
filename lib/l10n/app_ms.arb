@@ -1,6 +1,50 @@
 {
-	"appTitle": "Aplikasi Saya",
-	"welcome": "Selamat Datang",
-	"helloUser": "Hai, {name}!",
-	"newContact": "Tambah kontak baru"
+  "helloUser": "Helo, {name}!",
+  "@helloUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "newContact": "Tambah kenalan baharu",
+  "noContacts": "Tiada kenalan ditemui",
+  "addContact": "Tambah Kenalan",
+  "editContact": "Edit Kenalan",
+  "name": "Nama",
+  "mobile": "Nombor Telefon",
+  "notes": "Catatan",
+  "address": "Alamat",
+  "aura": "Aura",
+  "cancel": "Batal",
+  "save": "Simpan",
+  "update": "Kemas Kini",
+  "delete": "Padam",
+  "nameRequired": "Nama diperlukan",
+  "mobileRequired": "Nombor telefon diperlukan",
+  "mobileDigitsOnly": "Nombor telefon mestilah mengandungi digit sahaja",
+  "auraInvalidInteger": "Aura mestilah nombor bulat yang sah",
+  "contactUpdated": "Kenalan berjaya dikemas kini",
+  "contactCreated": "Kenalan berjaya ditambah",
+  "contactDeleted": "Kenalan telah dipadam",
+  "failedLoadContact": "Gagal memuatkan kenalan: {error}",
+  "@failedLoadContact": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "failedSaveContact": "Gagal menyimpan kenalan: {error}",
+  "@failedSaveContact": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "noMessagesYet": "Belum ada mesej. Mulakan perbualan!",
+  "typeMessage": "Taip mesej...",
+  "settings": "Tetapan",
+  "chooseAppBarColor": "Pilih Warna AppBar",
+  "cancel": "Batal",
+  "apply": "Gunakan",
+  "changeAppBarColor": "Tukar Warna AppBar",
+  "noContactsFound": "Tiada kenalan dijumpai."
 }

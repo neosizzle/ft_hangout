@@ -62,8 +62,7 @@ class DatabaseHelper {
     // Settings table
     await db.execute('''
       CREATE TABLE IF NOT EXISTS settings (
-        header_color TEXT NOT NULL DEFAULT '#ef9a86',
-        lang TEXT NOT NULL DEFAULT 'en'
+        header_color TEXT NOT NULL DEFAULT '#ef9a86'
       )
     ''');
 
@@ -73,7 +72,6 @@ class DatabaseHelper {
     if (settings.isEmpty) {
       await db.insert('settings', {
         'header_color': '#ef9a86',
-        'lang': 'en',
       });
     }
 

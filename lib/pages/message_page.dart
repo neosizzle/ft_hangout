@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../database/database_helper.dart';
 import '../widgets/messages_app_bar.dart';
 import '../services/sms_service.dart';
@@ -70,9 +71,9 @@ class MessagePageState extends State<MessagePage> {
     if (text.isEmpty) return;
 
     final newMsgPayload = {
-       "contact_id": widget.contactId,
-        "contents": text,
-        "is_sender": 1,
+      "contact_id": widget.contactId,
+      "contents": text,
+      "is_sender": 1,
     };
     final newMsg = await DatabaseHelper.instance.insertMessage(newMsgPayload);
 
@@ -81,7 +82,6 @@ class MessagePageState extends State<MessagePage> {
     handleNewMsg(newMsg);
   }
 
-  
   void handleNewMsg(Map<String, dynamic> newMessage) {
     if (newMessage['contact_id'] != widget.contactId) return;
     setState(() {
@@ -95,7 +95,7 @@ class MessagePageState extends State<MessagePage> {
     super.initState();
     loadMessages();
     loadUser();
-    
+
     // NOTE: BAD DESIGN, OVERWRITES OTHER REFERENCES
     // this is used here because there is no other references
     SmsService.instance.onMessageReceived = handleNewMsg;
@@ -111,6 +111,8 @@ class MessagePageState extends State<MessagePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: MessagesAppBar(
         username: contact?['name'] ?? '',
@@ -125,8 +127,8 @@ class MessagePageState extends State<MessagePage> {
             child: messages == null
                 ? const Center(child: CircularProgressIndicator())
                 : messages!.isEmpty
-                    ? const Center(
-                        child: Text('No messages yet. Say hello!'),
+                    ? Center(
+                        child: Text(l10n.noMessagesYet),
                       )
                     : ListView.builder(
                         controller: scrollController,
@@ -181,8 +183,6 @@ class MessagePageState extends State<MessagePage> {
                                       fontSize: 10,
                                     ),
                                   ),
-
-
                                 ],
                               ),
                             ),
@@ -215,7 +215,7 @@ class MessagePageState extends State<MessagePage> {
                     minLines: 1,
                     maxLines: 5,
                     decoration: InputDecoration(
-                      hintText: 'Type a message...',
+                      hintText: l10n.typeMessage,
                       filled: true,
                       fillColor: Colors.grey.shade200,
                       border: OutlineInputBorder(

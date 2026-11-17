@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import '../l10n/app_localizations.dart';
 import '../main.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -11,20 +12,18 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String selectedLanguage = 'en';
-
   @override
   void initState() {
     super.initState();
-    selectedLanguage =
-        appKey.currentState?.systemLang ?? 'en';
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(l10n.settings),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -43,7 +42,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     return StatefulBuilder(
                       builder: (context, setDialogState) {
                         return AlertDialog(
-                          title: const Text('Choose AppBar Color'),
+                          title: Text(l10n.chooseAppBarColor),
                           content: ColorPicker(
                             pickerColor: tempColor ?? Colors.white,
                             onColorChanged: (color) {
@@ -57,7 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               onPressed: () {
                                 Navigator.pop(dialogContext);
                               },
-                              child: const Text('Cancel'),
+                              child: Text(l10n.cancel),
                             ),
                             ElevatedButton(
                               onPressed: () {
@@ -68,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                                 Navigator.pop(dialogContext);
                               },
-                              child: const Text('Apply'),
+                              child: Text(l10n.apply),
                             ),
                           ],
                         );
@@ -77,47 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 );
               },
-              child: const Text('Change AppBar Color'),
-            ),
-
-            const SizedBox(height: 24),
-
-            // Language Settings
-            const Text(
-              'Language',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 8),
-
-            DropdownButtonFormField<String>(
-              value: selectedLanguage, // TODO: check this
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Select Language',
-              ),
-              items: const [
-                DropdownMenuItem(
-                  value: 'en',
-                  child: Text('English'),
-                ),
-                DropdownMenuItem(
-                  value: 'ms',
-                  child: Text('Bahasa Melayu'),
-                ),
-              ],
-              onChanged: (value) {
-                if (value == null) return;
-
-                setState(() {
-                  selectedLanguage = value;
-                });
-
-                appKey.currentState?.changeLang(value);
-              },
+              child: Text(l10n.changeAppBarColor),
             ),
           ],
         ),
