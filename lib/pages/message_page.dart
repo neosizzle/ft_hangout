@@ -70,11 +70,16 @@ class MessagePageState extends State<MessagePage> {
 
     if (text.isEmpty) return;
 
+    final contact = await DatabaseHelper.instance.getContactById(widget.contactId);
+    if (contact == null) throw Exception("HOW IS THIS POSSIBLE");
+    await SmsService.instance.sendSms(recipient: contact['mobile'], message: text, contactId: widget.contactId);
+
     final newMsgPayload = {
       "contact_id": widget.contactId,
       "contents": text,
       "is_sender": 1,
     };
+    
     final newMsg = await DatabaseHelper.instance.insertMessage(newMsgPayload);
 
     messageController.clear();

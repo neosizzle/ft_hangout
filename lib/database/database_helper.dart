@@ -260,7 +260,7 @@ class DatabaseHelper {
     return null;
   }
 
-  // get contact by id
+  // get contact by mobile
   Future<Map<String, dynamic>?> getContactByMobile(String mobile) async {
     final db = await database;
 
