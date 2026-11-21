@@ -43,13 +43,19 @@ class _SettingsPageState extends State<SettingsPage> {
                       builder: (context, setDialogState) {
                         return AlertDialog(
                           title: Text(l10n.chooseAppBarColor),
-                          content: ColorPicker(
-                            pickerColor: tempColor ?? Colors.white,
-                            onColorChanged: (color) {
-                              setDialogState(() {
-                                tempColor = color;
-                              });
-                            },
+                          content: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.55,
+                            width: double.maxFinite,
+                            child: SingleChildScrollView(
+                              child: ColorPicker(
+                                pickerColor: tempColor ?? Colors.white,
+                                onColorChanged: (color) {
+                                  setDialogState(() {
+                                    tempColor = color;
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                           actions: [
                             TextButton(
@@ -60,8 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                appKey.currentState
-                                    ?.changeAppBarColor(
+                                appKey.currentState?.changeAppBarColor(
                                   tempColor ?? Colors.white,
                                 );
 

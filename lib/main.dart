@@ -4,7 +4,6 @@ import 'pages/home_page.dart';
 import 'database/database_helper.dart';
 import 'l10n/app_localizations.dart';
 
-// TODO: send SMS
 final GlobalKey<MyAppState> appKey = GlobalKey<MyAppState>();
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
